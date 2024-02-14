@@ -23,10 +23,6 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "handleLogin", null);
-__decorate([
-    (0, common_1.Get)('google/redirect'),
-    __metadata("design:type", Object)
-], AuthController.prototype, "", void 0);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth')
 ], AuthController);

@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS mybudget;
+
+CREATE USER IF NOT EXISTS 'budgetuser'@'localhost' IDENTIFIED BY 'user2024';
+
+GRANT ALL PRIVILEGES ON mybudget.* TO 'starchaser'@'localhost';
+
+GRANT CREATE, ALTER, SELECT, INSERT, UPDATE, DROP, REFERENCES ON *.* TO `budgetuser`@`localhost`;
+
+FLUSH PRIVILEGES;

@@ -1,0 +1,3 @@
+DROP USER IF EXISTS 'budgetuser'@'localhost';
+FLUSH PRIVILEGES;
+DROP DATABASE IF EXISTS mybudget;

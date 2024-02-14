@@ -7,5 +7,5 @@ export class AuthController {
         return {msg: 'Google Authentication'};
     }
 
-    @Get('google/redirect')  
+    // @Get('google/redirect')  
 }
