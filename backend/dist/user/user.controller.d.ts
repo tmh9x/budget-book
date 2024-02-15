@@ -6,4 +6,5 @@ export declare class UserController {
     findAll(): User[];
     getAllUsers(): User[];
     createUser(userData: User): User;
+    // createUser(userData: User): Promise<User>;
 }

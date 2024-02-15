@@ -1,26 +1,43 @@
-import { Injectable } from '@nestjs/common';
 import { Request, Response } from 'express';
-// import { UserService } from '../user/user.service';
-// import { JwtService } from '@nestjs/jwt';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { UserService } from '../user/user.service';
+import { JwtService } from '@nestjs/jwt';
+import { User } from '../entity/user.entity';
+
+
 
 @Injectable()
 export class AuthService {
-    googleLogin(req: Request, res: Response){
-        console.log(req.user);
-    }
-    // constructor(
-    //     private usersService: UsersService,
-    //     private jwtService: JwtService
-    // ) {}
+  constructor(
+    private userService: UserService,
+    private jwtService: JwtService
+  ) {}
+
+  async validateGoogleUser(googleId: string): Promise<any> {
     
-    // async googleLogin(googleId: string): Promise<{ access_token: string }> {
-    //     // Überprüfen Sie, ob ein Benutzer mit der Google-ID bereits vorhanden ist
-    //     const user = await this.usersService.findByGoogleId(googleId);
-    //     if (!user) {
-    //     // Wenn der Benutzer nicht existiert, werfen Sie eine Ausnahme
-    //     throw new UnauthorizedException('Google user not found');
-    //     }
-    //     createJwtToken(user: any) {
-    //         const payload = { googleId: user.googleId, email: user.email };
-    //         return this.jwtService.sign(payload); // Erzeugt den JWT-Token
+    const user = await this.userService.findByGoogleId(googleId);
+    if (!user) {
+    
+      throw new UnauthorizedException('Google user not found');
+    }
+    return user;
+  }
+  googleLogin(req: Request, res: Response){
+    console.log(req.user);
+}
+  generateToken(user: any): string {
+    const payload = { googleId: user.googleId, email: user.email };
+    return this.jwtService.sign(payload); 
+  }
+
+  // async googleLogin(req: Request<any, any, User>) {
+  //   const user = req.user as User;
+  //   const validatedUser = await this.validateGoogleUser(user.googleId); //
+  //   if (!validatedUser) {
+  //     throw new UnauthorizedException();
+  //   }
+  //   return {
+  //     access_token: this.generateToken(validatedUser),
+  //   };
+  // }
 }

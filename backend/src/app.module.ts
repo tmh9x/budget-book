@@ -8,6 +8,7 @@ import { GoogleStrategy } from './auth/auth-utils/Google.strategy';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { paymentModule}  from './payment/payment.model'
+import { UserModule } from './user/user.model';
 require('dotenv').config()
 
 @Module({
@@ -23,7 +24,7 @@ require('dotenv').config()
       autoLoadEntities: true,
       synchronize: true, // wird auf false gesetzt, wenn wird das deployen werden
     }),
-    AuthModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -28,6 +28,9 @@ let UserController = class UserController {
     }
     createUser(userData) {
         return this.userService.createUser(userData);
+    // async createUser(userData) {
+    //     return await this.userService.createUser(userData);
+    // }
     }
 };
 exports.UserController = UserController;
@@ -49,6 +52,7 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", user_entity_1.User)
+    // __metadata("design:returntype", Promise)
 ], UserController.prototype, "createUser", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('users'),
