@@ -1,13 +1,18 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '../entity/user.entity';
+import { Any } from 'typeorm';
 
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  // @Get()
+  // findAll(): User[] {
+  //   return this.userService.getAllUsers();
+  // }
   @Get()
-  findAll(): User[] {
+  getAllUsers(): User[] {
     return this.userService.getAllUsers();
   }
 

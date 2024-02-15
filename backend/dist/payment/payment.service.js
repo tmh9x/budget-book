@@ -16,7 +16,7 @@ exports.PaymentService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const payment_entity_1 = require("./payment.entity");
+const payment_entity_1 = require("../entity/payment.entity");
 let PaymentService = class PaymentService {
     constructor(paymentRepository) {
         this.paymentRepository = paymentRepository;
