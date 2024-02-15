@@ -8,11 +8,6 @@ export class AuthController {
     @Get('google')
     @UseGuards(AuthGuard('google'))
     async googleAuth() {}
-    // @Get('google/login')
-    // handleLogin(){
-    //     return {msg: 'Google Authentication'};
-    // }
-
     @Get('google/redirect')
     @UseGuards(AuthGuard('google'))
     googleAuthRedirect(@Req() req, @Res() res) {
