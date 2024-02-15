@@ -13,6 +13,7 @@ const app_service_1 = require("./app.service");
 const payment_service_1 = require("./payment/payment.service");
 const payment_controller_1 = require("./payment/payment.controller");
 const auth_module_1 = require("./auth/auth.module");
+const Google_strategy_1 = require("./auth/auth-utils/Google.strategy");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -20,7 +21,7 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [auth_module_1.AuthModule],
         controllers: [app_controller_1.AppController, payment_controller_1.PaymentController],
-        providers: [app_service_1.AppService, payment_service_1.PaymentService],
+        providers: [app_service_1.AppService, payment_service_1.PaymentService, Google_strategy_1.GoogleStrategy],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map
