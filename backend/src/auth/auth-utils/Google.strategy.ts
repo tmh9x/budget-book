@@ -1,5 +1,5 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, VerifyCallback, Profile } from 'passport-google-oauth20';
+import { Strategy, VerifyCallback } from 'passport-google-oauth20';
 import { Injectable } from '@nestjs/common';
 
 import { config } from 'dotenv';
@@ -19,12 +19,12 @@ constructor() {
 }
 
 async validate (accessToken: string, refreshToken: string, profile: any, done: VerifyCallback): Promise<any> {
-    const { name, emails, photos } = profile
+    const { name, emails, photos } = profile;
     const user = {
     email: emails[0].value,
     firstName: name.givenName,
     lastName: name.familyName,
-    picture: photos[0].value,
+picture: photos[0].value,
     accessToken
     }
     done(null, user);
