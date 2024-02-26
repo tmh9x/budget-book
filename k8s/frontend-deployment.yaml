@@ -15,10 +15,10 @@ spec:
         app: frontend
     spec:
       containers:
-        - image: frontend:latest
-          imagePullPolicy: Never
+        - image: marcotechstarter/frontend:latest
+          imagePullPolicy: IfNotPresent
           name: frontend
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
       restartPolicy: Always
