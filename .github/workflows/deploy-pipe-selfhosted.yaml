@@ -26,6 +26,6 @@ jobs:
 
 
       - name: export variables
-        run: export CALLBACKURL = ${{ vars.CALLBACKURL }} && export DB_HOST = ${{ vars.DB_HOST }} && export DB_NAME = ${{ vars.DB_NAME }} && export DB_PASSWORD = ${{ vars.DB_PASSWORD }} && export DB_PORT = ${{ vars.DB_PORT }} && export DB_USER = ${{ vars.DB_USER }} && export TOKEN_KEY = ${{ vars.TOKEN_KEY }}
+        run: export CALLBACKURL=${{ vars.CALLBACKURL }} && export DB_HOST=${{ vars.DB_HOST }} && export DB_NAME=${{ vars.DB_NAME }} && export DB_PASSWORD=${{ vars.DB_PASSWORD }} && export DB_PORT=${{ vars.DB_PORT }} && export DB_USER=${{ vars.DB_USER }} && export TOKEN_KEY=${{ vars.TOKEN_KEY }}
       - name: export secrets
-        run: export GOOGLE_CLIENT_ID = ${{ secrets.GOOGLE_CLIENT_ID }} && export GOOGLE_CLIENT_SECRET = ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        run: export GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} && export GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
