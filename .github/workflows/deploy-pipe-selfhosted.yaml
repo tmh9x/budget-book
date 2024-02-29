@@ -22,3 +22,6 @@ jobs:
         run: aws s3 cp s3://jumpbucket-dev-1612/secrets/cert.pem proxy/cert
       - name: copy key
         run: aws s3 cp s3://jumpbucket-dev-1612/secrets/privkey.pem proxy/cert
+      - name: copy .env
+        run: aws s3 cp s3://jumpbucket-dev-1612/secrets/.env .
+        
