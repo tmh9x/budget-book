@@ -27,5 +27,6 @@ jobs:
 
       env_file:
         - ${ENVIRON}.env
+        
       - name: export secrets
         run: export GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} && export GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
