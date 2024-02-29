@@ -25,7 +25,6 @@ services:
       DB_NAME: ${DB_NAME}
 
   db:
-    env_file: .env
     build: ./mysql-database
     command: --default-authentication-plugin=mysql_native_password
     restart: always

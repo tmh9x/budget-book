@@ -33,7 +33,7 @@ export class AuthService {
       res.cookie('jwt', token);
       jwtConstants.token = token;
 
-      res.redirect('http://localhost:4200/expenses?token=' + token);
+      res.redirect(process.env.REDIRECT_URL + '/expenses?token=' + token);
       return;
     } else {
       const newCustomer = await this.customerService.createCustomer({
@@ -46,7 +46,7 @@ export class AuthService {
       res.cookie('jwt', token);
       jwtConstants.token = token;
 
-      res.redirect('http://localhost:4200/expenses?token=' + token);
+      res.redirect(process.env.REDIRECT_URL + '/expenses?token=' + token);
     }
   }
   async logout(req: Request, res: Response): Promise<void> {
