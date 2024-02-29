@@ -28,8 +28,5 @@ jobs:
       - name: load env variables
         run: |
           set -o allexport
-          source .env
+          source ~/actions-runner/_work/budget-book/budget-book/.env
           set +o allexport
-          
-      - name: export secrets
-        run: export GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} && export GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
