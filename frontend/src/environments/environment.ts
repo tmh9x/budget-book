@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://docker.compose.local/api/payment',
+  apiUrl: 'http://budget-book.byte-jumper.de/api/payment',
 };
