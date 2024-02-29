@@ -28,5 +28,5 @@ jobs:
       - name: load env variables
         run: |
           set -o allexport
-          source ~/actions-runner/_work/budget-book/budget-book/.env
+          source ./.env
           set +o allexport
