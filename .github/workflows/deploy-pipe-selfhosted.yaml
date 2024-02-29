@@ -16,6 +16,7 @@ jobs:
         with:
           ref: deployment
         
+        
       - name: go to project root and get certs from s3
         run: cd ~/actions-runner/_work/budget-book/budget-book
       - name: copy certs
@@ -24,4 +25,3 @@ jobs:
         run: aws s3 cp s3://jumpbucket-dev-1612/secrets/privkey.pem proxy/cert
       - name: copy .env
         run: aws s3 cp s3://jumpbucket-dev-1612/secrets/.env .
-
