@@ -10,6 +10,7 @@ jobs:
   deployment-of-b-book-compose:
     runs-on: self-hosted
 
+    steps:
       - name: checkout
         uses: actions/checkout@v4
         with:
@@ -24,8 +25,11 @@ jobs:
         run: aws s3 cp s3://jumpbucket-dev-1612/secrets/privkey.pem proxy/cert
 
 
-      env_file:
-        - ${ENVIRON}.env
-
+      - name: load env variables
+        run: |
+          set -o allexport
+          source .env
+          set +o allexport
+          
       - name: export secrets
         run: export GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} && export GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
