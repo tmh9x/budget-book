@@ -1,9 +1,9 @@
 FROM node:lts-alpine AS buildstage
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 COPY . .
-RUN npm run build:prod
+RUN npm run build
 
 FROM nginx:latest AS productionstage
 COPY --from=buildstage /app/dist/frontend/browser /etc/nginx/html
