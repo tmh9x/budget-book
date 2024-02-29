@@ -10,7 +10,6 @@ jobs:
   deployment-of-b-book-compose:
     runs-on: self-hosted
 
-    steps:
       - name: checkout
         uses: actions/checkout@v4
         with:
@@ -27,6 +26,6 @@ jobs:
 
       env_file:
         - ${ENVIRON}.env
-        
+
       - name: export secrets
         run: export GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }} && export GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}
