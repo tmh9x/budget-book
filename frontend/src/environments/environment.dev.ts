@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:3000/api/payment',
+  production: true,
+  apiUrl: 'http://budget-book.byte-jumper.de/api/payment',
 };
