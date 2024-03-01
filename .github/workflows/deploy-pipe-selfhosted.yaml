@@ -26,3 +26,13 @@ jobs:
       - name: copy .env
         run: aws s3 cp s3://jumpbucket-dev-1612/secrets/.env .
         
+    steps:
+      - name: Pull Docker image frontend
+        run: sudo docker pull mone19/budget-book-frontend:latest
+      - name: Delete old docker container 
+        run: docker rm -f budget-book-frontend-container || true
+
+      - name: Pull Docker image backend
+        run: sudo docker pull mone19/budget-book-backend:latest
+      - name: Delete old docker container 
+        run: docker rm -f budget-book-backend-container || true  
