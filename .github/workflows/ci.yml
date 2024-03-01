@@ -18,15 +18,17 @@ jobs:
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
       - name: Build the Docker image frontend
-        run: docker build ./frontend --file Dockerfile --tag mone19/budget-book-frontend:latest
+        run: |
+          cd frontend
+          docker build . --file Dockerfile --tag mone19/budget-book-frontend:latest
 
       - name: Push to Dockerhub
         run: docker push mone19/budget-book-frontend:latest
 
       - name: Build the Docker image backend
-        run: docker build ./backend --file Dockerfile --tag mone19/budget-book-backend:latest
+        run: |
+          cd backend
+          docker build . --file Dockerfile --tag mone19/budget-book-backend:latest
 
       - name: Push to Dockerhub
         run: docker push mone19/budget-book-backend:latest  
-
-
