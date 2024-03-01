@@ -22,5 +22,3 @@ jobs:
       run: docker build . --file Diockerfile --tag 
     - name: Push to Dockerhub
       run: docker push mone19/cicd-pipeline:latest
-
-      
