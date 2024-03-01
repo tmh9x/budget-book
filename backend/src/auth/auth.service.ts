@@ -23,7 +23,6 @@ export class AuthService {
     const email = customer.email;
     const firstName = customer.firstName;
     const lastName = customer.lastName;
-    const googleId = customer.id;
 
     const existingCustomerByEmail =
       await this.customerService.findByEmail(email);
@@ -58,14 +57,4 @@ export class AuthService {
     const payload = { sub: customer.id, email: customer.email };
     return this.jwtService.sign(payload);
   }
-
-  // decodeToken(token: string): any {
-  //   return this.jwtService.verify(token);
-  // }
-  // setActiv(activ: any): void {
-  //   this.activ = activ;
-  // }
-  // getActiv(){
-  //   return this.activ;
-  // }
 }
