@@ -32,7 +32,7 @@ await app.close();
 });
 
 it('/payment (PUT)', async () => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoib25zLmJlbi15b3Vzc2VmQGRvY2MudGVjaHN0YXJ0ZXIuZGUiLCJpYXQiOjE3MDkxMTg2NDAsImV4cCI6MTcwOTEyMjI0MH0.ce1DpU_s3mUQoLgGXFs-dUQ56tYphE8-RSBGsbOTqlw'
+    const token = process.env.TEST_TOKEN;
 await request(app.getHttpServer())
     .put('/payment')
     .set('Authorization', `Bearer ${token}`)
@@ -40,7 +40,7 @@ await request(app.getHttpServer())
     .expect(200);
 });
 it('/payment (Get)', async () => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoib25zLmJlbi15b3Vzc2VmQGRvY2MudGVjaHN0YXJ0ZXIuZGUiLCJpYXQiOjE3MDkxMjQzNTcsImV4cCI6MTcwOTM4MzU1N30.3iDth7_3a1oac8jM0ATvJIuvVeSRsOC7GxuUR9P1zrU'
+    const token = process.env.TEST_TOKEN;
 await request(app.getHttpServer())
     .get('/payment')
     .set('Authorization', `Bearer ${token}`)
