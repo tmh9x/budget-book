@@ -2,7 +2,8 @@ name: Docker Image CI
 
 on:
   push:
-    branches: ["deployment"]
+    branches:
+      - deployment
 
 jobs:
   build:
@@ -24,7 +25,7 @@ jobs:
 
       - name: Push to Dockerhub
         run: docker push mone19/budget-book-frontend:latest
-        
+
 
       - name: Build the Docker image backend
         run: |
