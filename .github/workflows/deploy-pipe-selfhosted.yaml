@@ -16,17 +16,13 @@ jobs:
         with:
           ref: deployment
         
-        
       - name: go to project root and get certs from s3
-        run: cd ~/actions-runner/_work/budget-book/budget-book
-      - name: copy certs
-        run: aws s3 cp s3://jumpbucket-dev-1612/secrets/cert.pem proxy/cert
-      - name: copy key
-        run: aws s3 cp s3://jumpbucket-dev-1612/secrets/privkey.pem proxy/cert
-      - name: copy .env
-        run: aws s3 cp s3://jumpbucket-dev-1612/secrets/.env .
-        
-    steps:
+        run: |
+          cd ~/actions-runner/_work/budget-book/budget-book
+          aws s3 cp s3://jumpbucket-dev-1612/secrets/cert.pem proxy/cert
+          aws s3 cp s3://jumpbucket-dev-1612/secrets/privkey.pem proxy/cert
+          aws s3 cp s3://jumpbucket-dev-1612/secrets/.env .
+
       - name: Pull Docker image frontend
         run: sudo docker pull mone19/budget-book-frontend:latest
       - name: Delete old docker container 
@@ -35,4 +31,4 @@ jobs:
       - name: Pull Docker image backend
         run: sudo docker pull mone19/budget-book-backend:latest
       - name: Delete old docker container 
-        run: docker rm -f budget-book-backend-container || true  
+        run: docker rm -f budget-book-backend-container || true
