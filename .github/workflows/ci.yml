@@ -33,4 +33,4 @@ jobs:
           docker build . --file Dockerfile --tag mone19/budget-book-backend:latest
 
       - name: Push to Dockerhub
-        run: docker push mone19/budget-book-backend:latest  
+        run: docker push mone19/budget-book-backend:latest
