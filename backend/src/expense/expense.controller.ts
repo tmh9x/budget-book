@@ -49,6 +49,7 @@ export class ExpenseController {
   remove(@Param('id') id: string) {
     return this.expenseService.remove(+id);
   }
+
   @Get('statistics')
   getStatistics(@Req() req: Request) {
     return this.expenseService.getStatistics(req);
