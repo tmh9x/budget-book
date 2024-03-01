@@ -45,3 +45,5 @@ services:
       - ./proxy/cert:/etc/nginx/certs
     depends_on:
       - frontend
+
+      
