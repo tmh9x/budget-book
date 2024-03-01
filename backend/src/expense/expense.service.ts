@@ -12,7 +12,7 @@ import { Request } from 'express';
 import { jwtConstants } from 'src/auth/contanst';
 
 @Injectable()
-export class PaymentService {
+export class ExpenseService {
   constructor(
     @InjectRepository(Expense) private expenseRepository: Repository<Expense>,
     private jwtService: JwtService,
@@ -67,5 +67,52 @@ export class PaymentService {
 
   async remove(id: number): Promise<void> {
     await this.expenseRepository.delete(id);
+  }
+
+  async getStatistics(req: Request): Promise<any> {
+    try {
+      const token = req.headers.authorization?.split(' ')[1];
+      const customer = this.jwtService.verify(token);
+      const customerid = customer.sub;
+
+      const expenses = await this.expenseRepository.find({
+        where: { customerid: customerid },
+      });
+
+      const groupExpenses = (type: string) =>
+        expenses
+          .filter((expense) => expense.type === type)
+          .reduce(
+            (acc, expense) => {
+              acc[expense.category] =
+                (acc[expense.category] || 0) +
+                parseFloat(expense.amount.toString());
+              return acc;
+            },
+            {} as { [key: string]: number },
+          );
+
+      const totalExpenses = Object.values(groupExpenses('expense')).reduce(
+        (sum, amount) => sum + amount,
+        0,
+      );
+      const totalIncome = Object.values(groupExpenses('income')).reduce(
+        (sum, amount) => sum + amount,
+        0,
+      );
+      const balance = totalIncome - totalExpenses;
+
+      return {
+        totalExpenses,
+        totalIncome,
+        balance,
+        expensesByCategory: groupExpenses('expense'),
+        incomeByCategory: groupExpenses('income'),
+        expenses,
+      };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 }
