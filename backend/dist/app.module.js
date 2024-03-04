@@ -7,12 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
-const app_controller_1 = require("./app.controller");
-const app_service_1 = require("./app.service");
 const auth_module_1 = require("./auth/auth.module");
 const common_1 = require("@nestjs/common");
 const expense_module_1 = require("./expense/expense.module");
 const typeorm_1 = require("@nestjs/typeorm");
+const statistics_module_1 = require("./statistics/statistics.module");
 require('dotenv').config();
 let AppModule = class AppModule {
 };
@@ -20,7 +19,7 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            expense_module_1.PaymentModule,
+            expense_module_1.ExpenseModule,
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
                 host: process.env.DB_HOST,
@@ -32,9 +31,10 @@ exports.AppModule = AppModule = __decorate([
                 synchronize: true,
             }),
             auth_module_1.AuthModule,
+            statistics_module_1.StatisticsModule,
         ],
-        controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        controllers: [],
+        providers: [],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

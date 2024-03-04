@@ -3,11 +3,11 @@
 /backend/dist
 /frontend/dist
 frontend/.angular
-/backend/node_modules
-/frontend/node_modules
+node_modules
 /build
 /backend/dist/
 /proxy/cert
+videos
 
 
 # Logs
@@ -48,6 +48,8 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+.env.dev
+.env.prod
 
 # temp directory
 .temp

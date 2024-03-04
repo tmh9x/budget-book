@@ -1,32 +1,32 @@
 import {
   Controller,
-  ExecutionContext,
-  Post,
   Get,
   Body,
-  Res,
-  HttpStatus,
   Delete,
   Put,
   Param,
   Injectable,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
-import { Request } from 'express';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { JwtService } from '@nestjs/jwt';
+import { AuthGuard } from 'src/auth/auth.guard';
 
+@ApiBearerAuth()
 @Controller('expense')
 @Injectable()
+@UseGuards(AuthGuard)
 export class ExpenseController {
-  constructor(private readonly expenseService: ExpenseService) {}
-
-  /*   @Post()
-  create(@Body() body: any,@Req() req: Request) {
-    return this.expenseService.create(body,req);
-  } */
+  constructor(
+    private readonly expenseService: ExpenseService,
+    private jwtService: JwtService,
+  ) {}
 
   @Get()
   findAll(@Req() req) {
+    console.log('expense');
     return this.expenseService.findAll(req);
   }
 
@@ -37,7 +37,6 @@ export class ExpenseController {
 
   @Put()
   update(@Req() req, @Body() body: any) {
-    console.log('body.id', body.id);
     if (body.id) {
       return this.expenseService.update(body.id, body);
     } else {
@@ -48,10 +47,5 @@ export class ExpenseController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.expenseService.remove(+id);
-  }
-
-  @Get('statistics')
-  getStatistics(@Req() req: Request) {
-    return this.expenseService.getStatistics(req);
   }
 }

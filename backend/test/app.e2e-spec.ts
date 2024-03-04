@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 // import * as request from 'supertest';
-import request, { SuperTest, Test as STest } from 'supertest';
+// import request, { SuperTest, Test as STest } from 'supertest';
 import { AppModule } from './../src/app.module';
 
 describe('AppController (e2e)', () => {
@@ -17,7 +17,7 @@ describe('AppController (e2e)', () => {
   });
 
   // it('/auth/google/redirect (GET)', async () => {
-    
+
   //   const token = '1234';
 
   //   return request(app.getHttpServer())

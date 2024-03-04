@@ -1,4 +1,4 @@
-import { Global, Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Request, Response } from 'express';
 
 import { Customer } from '../entity/customer.entity';
@@ -11,12 +11,7 @@ export class AuthService {
   constructor(
     private customerService: CustomerService,
     private jwtService: JwtService,
-  ) { }
-
-  /*   async validateCustomerByEmail(email: string): Promise<Customer> { 
-    const customer = await this.customerService.findByEmail(email); 
-    return customer;
-  } */
+  ) {}
 
   async googleLogin(req: Request, res: Response): Promise<void> {
     const customer = req.user as Customer;
@@ -57,5 +52,4 @@ export class AuthService {
     const payload = { sub: customer.id, email: customer.email };
     return this.jwtService.sign(payload);
   }
-
 }

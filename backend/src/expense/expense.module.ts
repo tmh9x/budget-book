@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule, getCustomRepositoryToken } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { Expense } from '../entity/expense.entity';
 import { ExpenseService } from './expense.service';
 import { ExpenseController } from './expense.controller';
@@ -9,4 +9,4 @@ import { ExpenseController } from './expense.controller';
   controllers: [ExpenseController],
   providers: [ExpenseService]
 })
-export class PaymentModule {}
+export class ExpenseModule {}
