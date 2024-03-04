@@ -1,16 +1,14 @@
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
-import { PaymentModule } from './expense/expense.module';
+import { ExpenseModule } from './expense/expense.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
+import { StatisticsModule } from './statistics/statistics.module';
 
 require('dotenv').config();
 
 @Module({
   imports: [
-    PaymentModule,
+    ExpenseModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -22,8 +20,9 @@ require('dotenv').config();
       synchronize: true, // wird auf false gesetzt, wenn wird das deployen werden
     }),
     AuthModule,
+    StatisticsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule { }

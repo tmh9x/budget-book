@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, IntegerType } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Customer {
@@ -6,13 +6,11 @@ export class Customer {
   id: number;
 
   @Column({ unique: true })
-  email: string; 
+  email: string;
 
   @Column({ nullable: false })
   firstName: string;
 
   @Column({ nullable: false })
   lastName: string;
-
-
 }
