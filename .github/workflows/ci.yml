@@ -31,6 +31,7 @@ jobs:
         run: |
           cd backend
           docker build . --file Dockerfile --tag mone19/budget-book-backend:latest
+          docker build . --file Dockerfile --tag mone19/budget-book-backend:latest --build-arg NODE_ENV=production
 
       - name: Push to Dockerhub
         run: docker push mone19/budget-book-backend:latest
