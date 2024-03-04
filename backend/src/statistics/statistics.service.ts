@@ -45,8 +45,7 @@ export class StatisticsService {
                 totalIncome,
                 balance,
                 expensesByCategory: groupExpenses('expense'),
-                incomeByCategory: groupExpenses('income'),
-                expenses,
+                incomeByCategory: groupExpenses('income')
             };
         } catch (error) {
             console.error(error);
