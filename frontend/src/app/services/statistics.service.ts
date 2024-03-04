@@ -8,7 +8,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class StatisticsService {
-  apiUrl = environment.apiUrl;
+  apiUrl = environment.apiUrl + 'statistics';
   jwtToken: string | null = '';
 
   constructor(

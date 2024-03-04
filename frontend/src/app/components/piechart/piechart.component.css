@@ -1,9 +1,6 @@
-#pieChart {
-    width: 300px;
-    height: 200px;
-    position: absolute;
-    left: 15%; 
-    right: 40%;
-    top: 43%;
-    transform: translateY(-50%);
-  }
+.pieChart-container {
+  width: 300px;
+  height: 200px;
+  margin: 0 auto;
+  position: relative;
+}

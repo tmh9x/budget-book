@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import { Chart } from 'chart.js/auto';
 import { ExpenseListComponent } from '../expense-list/expense-list.component';
+import { StatisticsService } from '../../services/statistics.service';
 
 @Component({
   standalone: true,
@@ -13,16 +14,20 @@ export class PieChartComponent implements OnInit {
   @Input() statisticsData: any[] = [];
   @Input() chartData: any = {};
   @Input() expenses: ExpenseListComponent[] = [];
+  expensesList: any[] = [];
 
-  constructor() {}
+  constructor(private statisticsService: StatisticsService) {}
 
   ngOnInit(): void {
-    this.createPieChart();
+    this.statisticsService.getStatistics().subscribe((expenses) => {
+      this.expensesList = expenses;
+      this.createPieChart();
+    });
   }
 
   createPieChart() {
-    const ctx = document.getElementById('pieChart') as HTMLCanvasElement;
-    const pieChart = new Chart(ctx, {
+    const ctx = document.getElementById('pieChartExpense') as HTMLCanvasElement;
+    const pieChartExpense = new Chart(ctx, {
       type: 'pie',
       data: {
         labels: [

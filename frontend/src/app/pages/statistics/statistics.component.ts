@@ -27,7 +27,7 @@ export class StatisticsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.tokenstorageService.getTokenFromUrl();
+    /*    this.tokenstorageService.getTokenFromUrl();
     const token: string | null = this.tokenstorageService.get('jwt');
     console.log('hier token', token);
 
@@ -54,7 +54,7 @@ export class StatisticsComponent {
   getData(headers: HttpHeaders): Observable<any> {
     return this.http.get('http://localhost:3000/api/payment', {
       headers,
-    });
+    }); */
   }
 
   /*   prepareChartData(): void {
