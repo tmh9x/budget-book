@@ -1,8 +1,9 @@
 version: '3'
-
+volumes: 
+  db-data:
 services:
   frontend:
-    build: ./frontend
+    image: mone19/budget-book-frontend
     volumes:
       - ./frontend/nginx.conf:/etc/nginx/nginx.conf
     ports:
@@ -11,18 +12,18 @@ services:
       - backend
 
   backend:
-    build: ./backend
+    image: mone19/budget-book-backend
     env_file: .env
     ports:
       - "3000:3000"
-    depends_on:
-      - db
     environment:
       DB_HOST: db
       DB_PORT: ${DB_PORT}
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
+    depends_on:
+      - db
 
   db:
     env_file: .env
@@ -34,7 +35,13 @@ services:
       - MYSQL_DATABASE=${DB_NAME}
     ports:
       - ${DB_PORT}:3306
- 
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./mysql-database/init.sql:/docker-entrypoint-init.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 10s
+      retries: 10
 
   proxy:
     image: nginx:alpine

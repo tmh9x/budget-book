@@ -17,7 +17,7 @@ function handleGoogleLogin() {
   const clientId = '1002649678135-4n4gd4kmjabua37u7v6jq2jni18e4s03.apps.googleusercontent.com'; 
 
   // Konfigurieren Sie die Umleitungs-URL nach der Anmeldung
-  const redirectUri = 'http://localhost:3000/auth/google/redirect'; // Ihre Anwendungs-URL
+  const redirectUri = 'https:/budget-book.byte-jumper.de/api/auth/google/redirect'; // Ihre Anwendungs-URL
 
   // Konfigurieren Sie die Google OAuth-URL für die Autorisierung
   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=email%20profile`;

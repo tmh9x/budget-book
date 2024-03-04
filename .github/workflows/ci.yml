@@ -1,0 +1,37 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - deployment
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source 
+        uses: actions/checkout@v4
+
+      - name: Login Dockerhub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+      - name: Build the Docker image frontend
+        run: |
+          cd frontend
+          docker build . --file Dockerfile --tag mone19/budget-book-frontend:latest
+
+      - name: Push to Dockerhub
+        run: docker push mone19/budget-book-frontend:latest
+
+
+      - name: Build the Docker image backend
+        run: |
+          cd backend
+          docker build . --file Dockerfile --tag mone19/budget-book-backend:latest
+          docker build . --file Dockerfile --tag mone19/budget-book-backend:latest --build-arg NODE_ENV=production
+
+      - name: Push to Dockerhub
+        run: docker push mone19/budget-book-backend:latest
