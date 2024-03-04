@@ -28,17 +28,53 @@ describe('Visit BudgetBook Homepage', () => {
     cy.get('img[alt=Menu]').click();
     cy.get('span').contains('add').click();
 
-    cy.get('#expenseName').type('New expense');
+    cy.get('#expenseName').type('test');
     cy.get('#expenseAmount').type('100');
     cy.get('#expenseCategory').select('Food');
 
     cy.get('.add-button').click();
     cy.location('pathname').should('eq', '/expenses');
-    cy.contains('New expense').should('exist');
+    cy.contains('test').should('exist');
   })
-
   
 
+  it('update expense', () => {
+    cy.visit('http://localhost:4200/login?token=' + Cypress.env('jwt'))
+    cy.location('pathname').should('eq', '/expenses');
+
+    cy.get('.expense').each(($el, index) => {
+      if (index === 1) {
+        cy.wrap($el)
+          .find('img[src="../../../assets/images/edit.png"]')
+          .click();
+      }
+    });
+    
+    cy.get('#expenseName').clear().type('New expense2');
+    cy.get('#expenseAmount').type('150');
+    cy.get('#expenseCategory').select('Gift');
+
+    cy.get('.edit-button').click();
+    cy.location('pathname').should('eq', '/expenses');
+    
+  })
+  
+  it('delete expense', () => {
+    cy.visit('http://localhost:4200/login?token=' + Cypress.env('jwt'))
+    cy.location('pathname').should('eq', '/expenses');
+
+    cy.get('.expense').each(($el, index) => {
+      
+      if (index === 0) {
+        
+        cy.wrap($el)
+          .find('img[src="../../../assets/images/delete.png"]')
+          .click(); 
+      }
+    })
+    
+  })
+  
 })
 
 
