@@ -10,45 +10,42 @@ export class StatisticsService {
         @InjectRepository(Expense) private expenseRepository: Repository<Expense>,
         private jwtService: JwtService,
     ) { }
-    async getStatistics(userid: number): Promise<any> {
+    async getStatistics(customerId: number): Promise<any> {
         try {
+            
+            const query = `
+                SELECT
+                    totalExpenses,
+                    totalIncome,
+                    totalIncome - totalExpenses AS balance,
+                    json_object_agg(category_expense, total_expense) FILTER (WHERE category_expense IS NOT NULL) AS expensesByCategory,
+                    json_object_agg(category_income, total_income) FILTER (WHERE category_income IS NOT NULL) AS incomeByCategory
+                FROM (
+                    SELECT
+                        SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END) AS totalExpenses,
+                        SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END) AS totalIncome,
+                        CASE WHEN type = 'expense' THEN category END AS category_expense,
+                        CASE WHEN type = 'income' THEN category END AS category_income
+                    FROM expense
+                    WHERE customerid = $1
+                    GROUP BY type, category
+                ) AS TotalExpensesIncome;
+            `;
 
-            const expenses = await this.expenseRepository.find({
-                where: { customerid: userid }
-            });
+          
+            const result = await this.expenseRepository.query(query, [customerId]);
 
-            const groupExpenses = (type: string) =>
-                expenses
-                    .filter((expense) => expense.type === type)
-                    .reduce(
-                        (acc, expense) => {
-                            acc[expense.category] =
-                                (acc[expense.category] || 0) +
-                                parseFloat(expense.amount.toString());
-                            return acc;
-                        },
-                        {} as { [key: string]: number },
-                    );
-
-            const totalExpenses = Object.values(groupExpenses('expense')).reduce(
-                (sum, amount) => sum + amount,
-                0,
-            );
-            const totalIncome = Object.values(groupExpenses('income')).reduce(
-                (sum, amount) => sum + amount,
-                0,
-            );
-            const balance = totalIncome - totalExpenses;
-
+            
             return {
-                totalExpenses,
-                totalIncome,
-                balance,
-                expensesByCategory: groupExpenses('expense'),
-                incomeByCategory: groupExpenses('income')
+                totalExpenses: result[0].totalExpenses,
+                totalIncome: result[0].totalIncome,
+                balance: result[0].balance,
+                expensesByCategory: result[0].expensesByCategory,
+                incomeByCategory: result[0].incomeByCategory,
             };
         } catch (error) {
-            console.error(error);
+        
+            console.error('Error fetching statistics:', error);
             throw error;
         }
     }
