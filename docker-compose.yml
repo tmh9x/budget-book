@@ -12,7 +12,7 @@ services:
 
   backend:
     image: mone19/budget-book-backend
-    env_file: .env
+    env_file: .env.prod
     ports:
       - "3000:3000"
     depends_on:
