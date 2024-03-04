@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { PaymentModule } from './expense/expense.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       autoLoadEntities: true,
-      synchronize: true, // wird auf false gesetzt, wenn wird das deployen werden
+      synchronize: true,
     }),
     AuthModule,
   ],
