@@ -1,6 +1,6 @@
 version: '3'
 volumes: 
-  - db-data
+  db-data:
 services:
   frontend:
     image: mone19/budget-book-frontend
