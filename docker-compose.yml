@@ -12,7 +12,7 @@ services:
 
   backend:
     image: mone19/budget-book-backend
-    env_file: .env.prod
+    env_file: .env
     ports:
       - "3000:3000"
     depends_on:
@@ -25,6 +25,7 @@ services:
       DB_NAME: ${DB_NAME}
 
   db:
+    env_file: .env
     build: ./mysql-database
     command: --default-authentication-plugin=mysql_native_password
     restart: always
