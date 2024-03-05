@@ -11,9 +11,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { PaymentService } from './expense.service';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { Expense } from 'src/entity/expense.entity';
 
 @ApiBearerAuth()
 @Controller('expense')
@@ -50,6 +51,23 @@ export class PaymentController {
   }
 
   @Put()
+  @ApiOperation({ summary: 'update or add expense' })
+  @ApiBody({ 
+    description: 'expense',
+    type: Expense,
+    // schema: {
+    //   properties: {
+    //     id: { type:'number', example: 15 }, 
+    //     name: { type:'string', example: 'expense15' },
+    //     amount: { type:'number', example: 100.00 },
+    //     category: { type:'string', example: 'Others' },
+    //   }
+    // }
+  })
+  @ApiOkResponse({ 
+    description: 'expense added/updated sucessfully',
+    type: Expense,
+  })
   update(@Req() req, @Body() body: any) {
     if (body.id) {
       return this.paymentService.update(body.id, body);
