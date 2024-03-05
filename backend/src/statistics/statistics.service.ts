@@ -17,7 +17,7 @@ export class StatisticsService {
                     SUM(IF(type = 'expense', amount, 0)) AS totalExpenses,
                     SUM(IF(type = 'income', amount, 0)) AS totalIncome
                 FROM expense
-                WHERE customerid = $1
+                WHERE customerid = ?
             `;
 
       const totalsResult = await this.expenseRepository.query(totalsQuery, [
@@ -28,7 +28,7 @@ export class StatisticsService {
       const expensesQuery = `
                 SELECT category, SUM(amount) AS total
                 FROM expense
-                WHERE customerid = $1 AND type = 'expense'
+                WHERE customerid = ? AND type = 'expense'
                 GROUP BY category
             `;
 
@@ -44,7 +44,7 @@ export class StatisticsService {
       const incomeQuery = `
                 SELECT category, SUM(amount) AS total
                 FROM expense
-                WHERE customerid = $1 AND type = 'income'
+                WHERE customerid = ? AND type = 'income'
                 GROUP BY category
             `;
 

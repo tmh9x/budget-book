@@ -20,7 +20,6 @@ export class StatisticsListComponent implements OnInit {
   ngOnInit(): void {
     this.statisticsServce.getStatistics().subscribe((statistics) => {
       this.statisticsList = statistics;
-      console.log('statisticsList hier', this.statisticsList);
       this.prepareChartData();
     });
   }

@@ -15,14 +15,20 @@ export class PieChartComponent implements OnInit {
   @Input() chartData: any = {};
   @Input() expenses: ExpenseListComponent[] = [];
   statisticsList: any[] = [];
+  labels: any[] = [];
 
   constructor(private statisticsService: StatisticsService) {}
 
   ngOnInit(): void {
     this.statisticsService.getStatistics().subscribe((statistics) => {
       this.statisticsList = statistics;
-      this.createPieChart();
+      console.log('##########################', this.statisticsList);
     });
+    this.statisticsService.getStatistics().subscribe((statistics) => {
+      this.labels = statistics;
+      console.log('labels', this.labels);
+    });
+    this.createPieChart();
   }
 
   createPieChart() {
