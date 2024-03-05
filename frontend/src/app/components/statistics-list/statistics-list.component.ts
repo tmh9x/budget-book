@@ -1,6 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
+=======
+import { ExpenseService } from '../../services/expense-service.service';
+>>>>>>> origin/main
 import { StatisticsService } from '../../services/statistics.service';
 
 @Component({
@@ -15,10 +19,17 @@ export class StatisticsListComponent implements OnInit {
   @Input() chartData: any = {};
   expensesList: any[] = [];
 
+<<<<<<< HEAD
   constructor(private statisticsService: StatisticsService) {}
 
   ngOnInit(): void {
     this.statisticsService.getStatistics().subscribe((expenses) => {
+=======
+  constructor(private statisticsServce: StatisticsService) {}
+
+  ngOnInit(): void {
+    this.statisticsServce.getStatistics().subscribe((expenses) => {
+>>>>>>> origin/main
       this.expensesList = expenses;
       console.log('expensesList hier', this.expensesList);
       this.prepareChartData();

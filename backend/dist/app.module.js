@@ -12,7 +12,6 @@ const common_1 = require("@nestjs/common");
 const expense_module_1 = require("./expense/expense.module");
 const typeorm_1 = require("@nestjs/typeorm");
 const statistics_module_1 = require("./statistics/statistics.module");
-require('dotenv').config();
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
