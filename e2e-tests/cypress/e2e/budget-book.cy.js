@@ -1,20 +1,20 @@
 describe('Visit BudgetBook Homepage', () => {
   it('shows login', () => {
-    cy.visit('http://localhost:4200')
+    cy.visit(Cypress.env('url'))
   })
 
   it('redirect to login without token', () => {
-    cy.visit('http://localhost:4200/expenses')
+    cy.visit(Cypress.env('url')+'/expenses')
     cy.location('pathname').should('eq', '/')
   })
 
   it('redirect to expenses with token', () => {
-    cy.visit('http://localhost:4200/login?token=' + Cypress.env('jwt'))
+    cy.visit(Cypress.env('url')+'login?token=' + Cypress.env('jwt'))
     cy.location('pathname').should('eq', '/expenses')
   })
 
   it('user logout', () => {
-    cy.visit('http://localhost:4200/login?token=' + Cypress.env('jwt'))
+    cy.visit(Cypress.env('url')+'login?token=' + Cypress.env('jwt'))
     cy.location('pathname').should('eq', '/expenses')
     cy.get('img[alt=Menu]').click();
     cy.get('a[href="/logout"]').click();
@@ -22,7 +22,7 @@ describe('Visit BudgetBook Homepage', () => {
   })
 
   it('add expense', () => {
-    cy.visit('http://localhost:4200/login?token=' + Cypress.env('jwt'))
+    cy.visit(Cypress.env('url')+'login?token=' + Cypress.env('jwt'))
     cy.location('pathname').should('eq', '/expenses');
 
     cy.get('img[alt=Menu]').click();
@@ -39,7 +39,7 @@ describe('Visit BudgetBook Homepage', () => {
   
 
   it('update expense', () => {
-    cy.visit('http://localhost:4200/login?token=' + Cypress.env('jwt'))
+    cy.visit(Cypress.env('url')+'ogin?token=' + Cypress.env('jwt'))
     cy.location('pathname').should('eq', '/expenses');
 
     cy.get('.expense').each(($el, index) => {
@@ -60,7 +60,7 @@ describe('Visit BudgetBook Homepage', () => {
   })
   
   it('delete expense', () => {
-    cy.visit('http://localhost:4200/login?token=' + Cypress.env('jwt'))
+    cy.visit(Cypress.env('url')+'login?token=' + Cypress.env('jwt'))
     cy.location('pathname').should('eq', '/expenses');
 
     cy.get('.expense').each(($el, index) => {

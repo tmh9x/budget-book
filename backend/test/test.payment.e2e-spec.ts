@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppModule } from '../src/app.module';
 import request from 'supertest';
 
-describe('Payments', () => {
+describe('Expenses', () => {
   let app: INestApplication;
   let expenseRepository;
 
@@ -31,11 +31,11 @@ describe('Payments', () => {
     await app.close();
   });
 
-  it('/payment (PUT)', async () => {
+  it('/expense (PUT)', async () => {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoib25zLmJlbi15b3Vzc2VmQGRvY2MudGVjaHN0YXJ0ZXIuZGUiLCJpYXQiOjE3MDkxMTg2NDAsImV4cCI6MTcwOTEyMjI0MH0.ce1DpU_s3mUQoLgGXFs-dUQ56tYphE8-RSBGsbOTqlw';
     await request(app.getHttpServer())
-      .put('/payment')
+      .put('/expense')
       .set('Authorization', `Bearer ${token}`)
       .send({
         id: '10',
@@ -48,21 +48,21 @@ describe('Payments', () => {
       })
       .expect(200);
   });
-  it('/payment (Get)', async () => {
+  it('/expense (Get)', async () => {
     const token =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoib25zLmJlbi15b3Vzc2VmQGRvY2MudGVjaHN0YXJ0ZXIuZGUiLCJpYXQiOjE3MDkxMjQzNTcsImV4cCI6MTcwOTM4MzU1N30.3iDth7_3a1oac8jM0ATvJIuvVeSRsOC7GxuUR9P1zrU';
     await request(app.getHttpServer())
-      .get('/payment')
+      .get('/expense')
       .set('Authorization', `Bearer ${token}`)
       .expect(200);
   });
-  it('/payment (Get by id)', async () => {
+  it('/expense (Get by id)', async () => {
     await request(app.getHttpServer())
-      .get('/payment/10')
+      .get('/expense/10')
 
       .expect(200);
   });
-  it('/payment (Delete)', async () => {
-    await request(app.getHttpServer()).delete('/payment/10').expect(200);
+  it('/expense (Delete)', async () => {
+    await request(app.getHttpServer()).delete('/expense/10').expect(200);
   });
 });
