@@ -14,13 +14,13 @@ export class PieChartComponent implements OnInit {
   @Input() statisticsData: any[] = [];
   @Input() chartData: any = {};
   @Input() expenses: ExpenseListComponent[] = [];
-  expensesList: any[] = [];
+  statisticsList: any[] = [];
 
   constructor(private statisticsService: StatisticsService) {}
 
   ngOnInit(): void {
-    this.statisticsService.getStatistics().subscribe((expenses) => {
-      this.expensesList = expenses;
+    this.statisticsService.getStatistics().subscribe((statistics) => {
+      this.statisticsList = statistics;
       this.createPieChart();
     });
   }

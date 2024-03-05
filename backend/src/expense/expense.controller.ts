@@ -26,17 +26,12 @@ export class ExpenseController {
   ) {}
 
   @Get()
-<<<<<<< HEAD
-  findAll(@Req() req) {
-    console.log('expense');
-    return this.expenseService.findAll(req);
-=======
   findAll(
     @Req() req: Request,
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 7,
   ) {
-    return this.paymentService.findAll(req, page, limit);
+    return this.expenseService.findAll(req, page, limit);
   }
 
   /*   @Get('all')
@@ -46,8 +41,7 @@ export class ExpenseController {
 
   @Get('all')
   findAllElements() {
-    return this.paymentService.findAllElements();
->>>>>>> origin/main
+    return this.expenseService.findAllElements();
   }
 
   @Get(':id')

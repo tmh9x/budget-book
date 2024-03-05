@@ -7,14 +7,10 @@ import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
-<<<<<<< HEAD
-    ExpenseModule,
-=======
     ConfigModule.forRoot({
       envFilePath: '.env.' + process.env.NODE_ENV,
     }),
-    PaymentModule,
->>>>>>> origin/main
+    ExpenseModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,

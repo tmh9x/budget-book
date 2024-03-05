@@ -1,10 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-<<<<<<< HEAD
-=======
-import { ExpenseService } from '../../services/expense-service.service';
->>>>>>> origin/main
 import { StatisticsService } from '../../services/statistics.service';
 
 @Component({
@@ -17,28 +13,21 @@ import { StatisticsService } from '../../services/statistics.service';
 export class StatisticsListComponent implements OnInit {
   pieChartData: any = {};
   @Input() chartData: any = {};
-  expensesList: any[] = [];
+  statisticsList: any[] = [];
 
-<<<<<<< HEAD
-  constructor(private statisticsService: StatisticsService) {}
-
-  ngOnInit(): void {
-    this.statisticsService.getStatistics().subscribe((expenses) => {
-=======
   constructor(private statisticsServce: StatisticsService) {}
 
   ngOnInit(): void {
-    this.statisticsServce.getStatistics().subscribe((expenses) => {
->>>>>>> origin/main
-      this.expensesList = expenses;
-      console.log('expensesList hier', this.expensesList);
+    this.statisticsServce.getStatistics().subscribe((statistics) => {
+      this.statisticsList = statistics;
+      console.log('statisticsList hier', this.statisticsList);
       this.prepareChartData();
     });
   }
 
   prepareChartData(): void {
-    const labels = this.expensesList.map((expense) => expense.category);
-    const data = this.expensesList.map((expense) => expense.amount);
+    const labels = this.statisticsList.map((statistics) => statistics.category);
+    const data = this.statisticsList.map((statistics) => statistics.amount);
     this.pieChartData.data.labels = labels;
     this.pieChartData.data.datasets[0].data = data;
   }

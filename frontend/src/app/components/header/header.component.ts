@@ -26,8 +26,6 @@ export class HeaderComponent {
     this.expenseService.getAllExpenses().subscribe(
       (expensesList: any[]) => {
         this.expensesList = expensesList;
-        console.log('this.expensesList', this.expensesList);
-        console.log('this.expensesList', typeof this.expensesList);
       },
       (error) => {
         console.error('Error fetching expenses:', error);
@@ -64,7 +62,6 @@ export class HeaderComponent {
       }
       totalAmount = totalIncome - totalExpense;
     }
-    console.log('totalAmount', totalAmount);
     return totalAmount;
   }
 
