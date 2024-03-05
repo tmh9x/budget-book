@@ -12,38 +12,59 @@ export class StatisticsService {
   ) {}
   async getStatistics(customerId: number): Promise<any> {
     try {
-      const query = `
+      const totalsQuery = `
                 SELECT
-                    totalExpenses,
-                    totalIncome,
-                    totalIncome - totalExpenses AS balance,
-                    JSON_OBJECTAGG(category_expense, total_expense) FILTER (WHERE category_expense IS NOT NULL) AS expensesByCategory,
-                    JSON_OBJECTAGG(category_income, total_income) FILTER (WHERE category_income IS NOT NULL) AS incomeByCategory
-                FROM (
-                    SELECT
-                        SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END) AS totalExpenses,
-                        SUM(CASE WHEN type = 'income' THEN amount ELSE 0 END) AS totalIncome,
-                        CASE WHEN type = 'expense' THEN category END AS category_expense,
-                        CASE WHEN type = 'income' THEN category END AS category_income
-                    FROM expense
-                    WHERE customerid = $1
-                    GROUP BY type, category
-                ) AS TotalExpensesIncome;
+                    SUM(IF(type = 'expense', amount, 0)) AS totalExpenses,
+                    SUM(IF(type = 'income', amount, 0)) AS totalIncome
+                FROM expense
+                WHERE customerid = $1
             `;
 
-      /*     const result = await this.expenseRepository.query(query, [customerId]); */
+      const totalsResult = await this.expenseRepository.query(totalsQuery, [
+        customerId,
+      ]);
+      const totals = totalsResult[0];
+
+      const expensesQuery = `
+                SELECT category, SUM(amount) AS total
+                FROM expense
+                WHERE customerid = $1 AND type = 'expense'
+                GROUP BY category
+            `;
+
+      const expensesResult = await this.expenseRepository.query(expensesQuery, [
+        customerId,
+      ]);
+
+      const expensesByCategory = {};
+      expensesResult.forEach((expense) => {
+        expensesByCategory[expense.category] = expense.total;
+      });
+
+      const incomeQuery = `
+                SELECT category, SUM(amount) AS total
+                FROM expense
+                WHERE customerid = $1 AND type = 'income'
+                GROUP BY category
+            `;
+
+      const incomeResult = await this.expenseRepository.query(incomeQuery, [
+        customerId,
+      ]);
+
+      const incomeByCategory = {};
+      incomeResult.forEach((income) => {
+        incomeByCategory[income.category] = income.total;
+      });
+
+      const balance = totals.totalIncome - totals.totalExpenses;
 
       return {
-        totalExpenses: 50,
-        totalIncome: 100,
-        balance: 50,
-        expensesByCategory: [{ food: '421' }, { salary: '412421' }],
-        incomeByCategory: [{ food: '421' }, { salary: '412421' }],
-        /* totalExpenses: result[0].totalExpenses,
-        totalIncome: result[0].totalIncome,
-        balance: result[0].balance,
-        expensesByCategory: result[0].expensesByCategory,
-        incomeByCategory: result[0].incomeByCategory, */
+        totalExpenses: totals.totalExpenses,
+        totalIncome: totals.totalIncome,
+        balance: balance,
+        expensesByCategory: expensesByCategory,
+        incomeByCategory: incomeByCategory,
       };
     } catch (error) {
       console.error('Error fetching statistics:', error);
