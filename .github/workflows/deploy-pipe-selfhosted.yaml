@@ -3,7 +3,7 @@ name: 'deploy to selfhosted runner on ec2'
 on:
   push:
     branches:
-      - feature/main-finaln
+      - feature/main-final
   workflow_dispatch:
     
 jobs:
