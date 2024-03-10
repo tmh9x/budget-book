@@ -28,4 +28,4 @@ import { User } from './auth/entity/user.entity';
   controllers: [AuthController],
   providers: [AuthService, UserService],
 })
-export class AppModule { }
+export class AppModule {}

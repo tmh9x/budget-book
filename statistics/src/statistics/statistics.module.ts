@@ -7,13 +7,15 @@ import { ConfigService } from '@nestjs/config';
 import { StatisticsController } from './statistics.controller';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Expense]),
+  imports: [
+    TypeOrmModule.forFeature([Expense]),
     JwtModule.register({
-        global: true,
-        secret: 'It3n4FJ2uO8VJhMXLQobzIyqKvWMnI',
-        signOptions: { expiresIn: '3d' },
-    }),],
-    controllers: [StatisticsController],
-    providers: [StatisticsService, JwtService, ConfigService, Logger],
+      global: true,
+      secret: 'It3n4FJ2uO8VJhMXLQobzIyqKvWMnI',
+      signOptions: { expiresIn: '3d' },
+    }),
+  ],
+  controllers: [StatisticsController],
+  providers: [StatisticsService, JwtService, ConfigService, Logger],
 })
-export class StatisticsModule { }
+export class StatisticsModule {}
